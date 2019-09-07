@@ -1,5 +1,7 @@
 # API RESTFul
-> **API RESTFul** em implementação
+
+> em implementação
+
 
 ### Tecnologias
 - Java 
@@ -25,4 +27,5 @@
   - [ ] Ativar
   - [ ] Inativar
 
+> Leonardo Araújo
 
