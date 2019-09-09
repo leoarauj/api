@@ -25,7 +25,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Classe de representação da tabela Cliente
+ * Classe de representação da tabela <b>CLIENTE</b>
  * 
  * @author Leonardo Araújo
  */

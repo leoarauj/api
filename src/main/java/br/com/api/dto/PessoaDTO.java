@@ -6,13 +6,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import br.com.api.model.Pessoa;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
- * Classe de representação(DTO) da entidade Pessoa
+ * Classe de representação(DTO) da entidade {@link Pessoa}
  * 
  * @author Leonardo Araújo
  */
@@ -24,14 +25,14 @@ public @Data class PessoaDTO {
 	@ApiModelProperty(name = "ID de Pessoa", required = false)
 	private Long id;
 
-	@ApiModelProperty(name = "Denominação de pessoa Física ou Jurídica", required = true)
-	private String denominacao;
+	@ApiModelProperty(name = "Nome completo de Pessoa", required = true)
+	private String nome;
 
-	@ApiModelProperty(name = "CPF ou CPJ de Pessoa", required = true)
-	private Long cpfCnpj;
+	@ApiModelProperty(name = "CPF de Pessoa", required = true)
+	private Long cpf;
 
-	@ApiModelProperty(name = "E-mail de Pessoa", required = false)
-	private String email;
+	@ApiModelProperty(name = "RG de Pessoa", required = true)
+	private Long rg;
 
 	@ApiModelProperty(name = "Data início de cadastro", required = true)
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
@@ -41,9 +42,6 @@ public @Data class PessoaDTO {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy HH:mm:ss")
 	private LocalDateTime dataNascimento;
 
-	@ApiModelProperty(name = "Coluna [descricao] da tabela TipoPessoa", required = true)
-	private Long idTipoPessoa;
-
-	@ApiModelProperty(name = "Enum com possíveis valores de identidades de gênero", required = true)
+	@ApiModelProperty(name = "Enum com possíveis valores de identidade de gênero", required = true)
 	private Long idSexo;
 }

@@ -20,7 +20,6 @@ public interface PessoaMapper {
 	 * @param pessoa
 	 * @return
 	 */
-	@Mapping(target = "idTipoPessoa", source = "tipoPessoa.id")
 	@Mapping(target = "idSexo", source = "sexo.id")
 	public PessoaDTO toDTO(Pessoa pessoa);
 
@@ -31,7 +30,6 @@ public interface PessoaMapper {
 	 * @return
 	 */
 	@Mapping(target = "sexo", expression = "java(br.com.api.enuns.Sexo.getSexoPorId(pessoaDTO.getIdSexo()))")
-	@Mapping(target = "tipoPessoa", expression = "java(br.com.api.enuns.TipoPessoa.getTipoPessoaPorId(pessoaDTO.getIdTipoPessoa()))")
 	public Pessoa toEntity(PessoaDTO pessoaDTO);
 
 //	@InheritInverseConfiguration

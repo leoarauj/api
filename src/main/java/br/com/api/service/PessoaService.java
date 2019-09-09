@@ -2,9 +2,13 @@ package br.com.api.service;
 
 import java.util.Objects;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.api.exception.RestMessageCode;
+import br.com.api.exception.RestResponseMessageException;
 import br.com.api.model.Pessoa;
 import br.com.api.repository.PessoaRepository;
 
@@ -14,6 +18,7 @@ import br.com.api.repository.PessoaRepository;
  * @author Leonardo Araújo
  */
 @Service
+@Transactional
 public class PessoaService {
 
 	@Autowired
@@ -39,7 +44,7 @@ public class PessoaService {
 	 * @return
 	 */
 	public Pessoa getById(final Long id) {
-		return Objects.isNull(id) ? null : pessoaRepository.findById(id).get();
+		return pessoaRepository.findById(id).orElse(null);
 	}
 
 	/**
@@ -49,12 +54,14 @@ public class PessoaService {
 	 */
 	private void validarCamposObrigatorios(final Pessoa pessoa) {
 		if(Objects.isNull(pessoa)
-				|| Objects.isNull(pessoa.getCpfCnpj())
+				|| Objects.isNull(pessoa.getRg())
+				|| Objects.isNull(pessoa.getCpf())
+				|| Objects.isNull(pessoa.getNome())
+				|| Objects.isNull(pessoa.getSexo())
 				|| Objects.isNull(pessoa.getDataInicio())
-				|| Objects.isNull(pessoa.getDenominacao())
-				|| Objects.isNull(pessoa.getTipoPessoa())) {
-			
-			// Throw
+				|| Objects.isNull(pessoa.getDataNascimento())) {
+
+			throw new RestResponseMessageException(RestMessageCode.CAMPOS_OBRIGATORIOS_NAO_INFORMADOS);
 		}
 	}
 }
