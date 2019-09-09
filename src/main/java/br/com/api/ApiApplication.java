@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ControleDeOsApplication {
+public class ApiApplication {
 	
 	public static void main(String[] args) {
-		SpringApplication.run(ControleDeOsApplication.class, args);
+		SpringApplication.run(ApiApplication.class, args);
 	}
 	
 }

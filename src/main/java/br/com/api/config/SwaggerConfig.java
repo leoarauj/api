@@ -27,17 +27,16 @@ public class SwaggerConfig {
     public Docket productApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.oscontrol.api"))
+                .apis(RequestHandlerSelectors.basePackage("br.com.api"))
                 .paths(regex("/.*"))
-//                .paths(regex("/api.*"))
                 .build()
                 .apiInfo(metaInfo());
     }
 
     private ApiInfo metaInfo() {
         ApiInfo apiInfo = new ApiInfo(
-                "Controle #OS - API REST",
-                "API REST de controle de Ordem de Serviços.",
+                "API REST",
+                "API REST",
                 "1.0",
                 "Terms of Service",
                 new Contact("Leonardo Silva Araújo", "no url",
