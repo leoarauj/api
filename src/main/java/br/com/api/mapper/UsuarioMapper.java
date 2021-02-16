@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import br.com.api.dto.UsuarioDTO;
+import br.com.api.dto.UsuarioRespostaDTO;
 import br.com.api.model.Usuario;
 
 /**
@@ -21,7 +22,7 @@ public interface UsuarioMapper {
 	 * @return
 	 */
 	@Mapping(target = "idStatus", source = "status.id")
-	public UsuarioDTO toDTO(Usuario usuario);
+	public UsuarioRespostaDTO toDTO(final Usuario usuario);
 
 	/**
 	 * Converte o DTO {@link UsuarioDTO} para entidade {@link Usuario}
@@ -31,5 +32,14 @@ public interface UsuarioMapper {
 	 */
 	@Mapping(target = "status", expression = "java(br.com.api.enuns.StatusAtivoInativo.getStatusAtivoInativoPorId(usuarioDTO.getIdStatus()))")
 	@Mapping(target = "senha", expression = "java(br.com.api.util.SenhaUtils.gerarBCrypt(usuarioDTO.getSenha()))")
-	public Usuario toEntity(UsuarioDTO usuarioDTO);
+	public Usuario toEntity(final UsuarioDTO usuarioDTO);
+
+	/**
+	 * Converte o DTO {@link UsuarioRespostaDTO} para entidade {@link Usuario}
+	 * 
+	 * @param UsuarioDTO
+	 * @return
+	 */
+	@Mapping(target = "status", expression = "java(br.com.api.enuns.StatusAtivoInativo.getStatusAtivoInativoPorId(usuarioRespostaDTO.getIdStatus()))")
+	public Usuario toEntity(final UsuarioRespostaDTO usuarioRespostaDTO);
 }

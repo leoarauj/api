@@ -5,12 +5,12 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -21,6 +21,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -46,14 +47,17 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 @NoArgsConstructor
 @JsonInclude(content = Include.NON_NULL)
-public @Data class Usuario implements Serializable, UserDetails {
+//public @Data class Usuario implements Serializable {
+	public @Data class Usuario implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = -762947618414560070L;
 
 	@Id
-	@ApiModelProperty(name = "ID de Usuário", required = true)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@ApiModelProperty(name = "Identificador primário de Usuário", required = true)
 	@Column(name = "PK_USUARIO")
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotBlank
@@ -69,7 +73,7 @@ public @Data class Usuario implements Serializable, UserDetails {
 
 	@NotNull
 	@ApiModelProperty(name = "Pessoa", required = true)
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "FK_PESSOA", unique = true, updatable = false)
 	private Pessoa pessoa;
 
@@ -85,7 +89,7 @@ public @Data class Usuario implements Serializable, UserDetails {
 	@Column(name = "STATUS", nullable = false, length = 10)
 	private StatusAtivoInativo status;
 
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@ApiModelProperty(name = "Perfis de Usuário", required = true)
 	@JoinTable(
         name = "USUARIO_PERFIL",

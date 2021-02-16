@@ -2,16 +2,24 @@ package br.com.api.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.GenericGenerator;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -39,9 +47,11 @@ public @Data class Pessoa implements Serializable {
 	private static final long serialVersionUID = -8535937850650801237L;
 
 	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name = "increment", strategy = "increment")
 	@ApiModelProperty(name = "ID de Pessoa", required = true)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "PK_PESSOA")
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@NotBlank
@@ -75,5 +85,15 @@ public @Data class Pessoa implements Serializable {
 	@Convert(converter = SexoStringConverter.class)
 	@Column(name = "SEXO", nullable = false, length = 15)
 	private Sexo sexo;
+
+	@JoinTable(
+        name = "PESSOA_CONTATO",
+        uniqueConstraints = {@UniqueConstraint(columnNames = {"FK_PESSOA", "FK_CONTATO"})},
+        joinColumns = @JoinColumn(name = "FK_PESSOA", referencedColumnName = "PK_PESSOA", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "FK_CONTATO", referencedColumnName = "PK_CONTATO", nullable = false)
+    )
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ApiModelProperty(name = "Lista de contatos de Pessoa", required = true)
+	private List<Contato> contatos;
 
 }

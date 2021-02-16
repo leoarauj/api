@@ -82,7 +82,7 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findById(id)
 				.orElseThrow(() -> new RestResponseMessageException(RestMessageCode.NENHUM_RESULTADO_ENCONTRADO));
 
-		if(usuario.getStatus() == StatusAtivoInativo.INATIVO) {
+		if(usuario.getStatus().getId().compareTo(StatusAtivoInativo.INATIVO.getId()) == 0) {
 			usuario.setStatus(StatusAtivoInativo.ATIVO);
 			usuarioRepository.save(usuario);
 		}
@@ -101,7 +101,7 @@ public class UsuarioService {
 		Usuario usuario = usuarioRepository.findById(id)
 				.orElseThrow(() -> new RestResponseMessageException(RestMessageCode.NENHUM_RESULTADO_ENCONTRADO));
 
-		if(usuario.getStatus() == StatusAtivoInativo.ATIVO) {
+		if(usuario.getStatus().getId().compareTo(StatusAtivoInativo.ATIVO.getId()) == 0) {
 			usuario.setStatus(StatusAtivoInativo.INATIVO);
 			usuarioRepository.save(usuario);
 		}

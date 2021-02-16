@@ -11,12 +11,18 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.core.authority.AuthorityUtils;
+//import org.springframework.security.core.userdetails.User;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.userdetails.UserDetailsService;
+//import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.api.model.Perfil;
 import br.com.api.model.Usuario;
 import br.com.api.repository.UsuarioRepository;
 
+//public class CustomUserDetailService  {
 @Component
 public class CustomUserDetailService implements UserDetailsService {
 
